@@ -1,8 +1,14 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Account from "../components/Account";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 function User() {
+  const isAuthentificated = useSelector((state) => state.isAuthentificated);
+  if (!isAuthentificated) {
+    return <Navigate to="/" />;
+  }
   return (
     <>
       <Nav />
