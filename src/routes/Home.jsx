@@ -4,16 +4,8 @@ import Nav from "../components/Nav";
 import chat from "../assets/icon-chat.png";
 import money from "../assets/icon-money.png";
 import security from "../assets/icon-security.png";
-import { useDispatch } from "react-redux";
-import { profileUser } from "..//reducers/profile.reducer";
 
 function Home() {
-  {
-    /*} const dispatch = useDispatch();
-  dispatch(profileUser()).then((res) => {
-    console.log(res);
-  }); */
-  }
   return (
     <>
       <Nav />
