@@ -16,11 +16,21 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log("login");
     const userData = { email: email, password: password };
     dispatch(loginUser(userData)).then((res) => {
-      if (isAuthentificated) {
+      if (res.payload.status === 200) {
         localStorage.setItem("token", res.payload.body.token);
         navigate("/user");
+      } else {
+        {
+          /* afficher un message d'erreur */
+        }
+        const modal = document.querySelector(".modal-error");
+        modal.showModal();
+        modal.querySelector("button").addEventListener("click", () => {
+          modal.close();
+        });
       }
     });
   };
