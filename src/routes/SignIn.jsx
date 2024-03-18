@@ -4,14 +4,12 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { loginUser } from "..//reducers/auth.reducer";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isAuthentificated = useSelector((state) => state.isAuthentificated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = (e) => {
