@@ -4,7 +4,7 @@ import profileUser from "./reducers/profile.reducer";
 import counterReducer from "./reducers/conter.reducer";
 
 const store = configureStore({
-  reducer: authReducer,
+  reducer: profileUser,
 });
 
 export default store;

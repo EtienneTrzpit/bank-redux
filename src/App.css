@@ -102,6 +102,17 @@ body {
   font-size: 0.9rem;
 }
 
+.form-edit label,
+.form-edit input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-edit label,
+.form-edit input {
+  display: inline-block;
+}
+
 @media (min-width: 920px) {
   .hero {
     height: 400px;
