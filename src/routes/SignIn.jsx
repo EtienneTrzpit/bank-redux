@@ -9,18 +9,24 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 function SignIn() {
-  const isAthentificated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthentificated = useSelector(
+    (state) => state.auth.isAuthentificated
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  console.log(authState);
 
   const handleLogin = (e) => {
     e.preventDefault();
+    console.log(isAuthentificated);
     console.log("handleLogin");
-    const userData = `email: ${email}, password: ${password}`;
+    const userData = { email: email, password: password };
     dispatch(loginUser(userData));
   };
-  if (isAthentificated) {
+  if (isAuthentificated) {
+    console.log("navigate to user");
     return <Navigate to="/user" />;
   }
   return (

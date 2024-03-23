@@ -2,9 +2,11 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const Protected = ({ children }) => {
-  const token = useSelector((state) => state.auth.token);
+  const isAuthentificated = useSelector(
+    (state) => state.auth.isAuthentificated
+  );
   // Check if the user is authenticated
-  if (!token) {
+  if (!isAuthentificated) {
     console.log("Protected: user is not authenticated");
     // If not authenticated, redirect to the login page
     return <Navigate to="/" />;

@@ -16,7 +16,8 @@ export const loginUser = (userData) => {
         userData
       );
       console.log("success fetch");
-      dispatch(loginSuccess(response.data.token));
+      console.log(response.data.body.token);
+      dispatch(loginSuccess(response.data.body.token));
     } catch (error) {
       console.log("error fetch");
       dispatch(loginFailed(error.message));

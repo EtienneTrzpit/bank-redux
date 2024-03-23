@@ -1,9 +1,9 @@
 import { GET_USERPROFILE, EDIT_USERNAME } from "./type.actions";
 
-export const userProfile = (userData) => {
+export const userProfile = (userName, firstName, lastName) => {
   return {
     type: GET_USERPROFILE,
-    payload: userData,
+    payload: { userName, firstName, lastName },
   };
 };
 

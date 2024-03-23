@@ -1,8 +1,25 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Account from "../components/Account";
+import { useSelector } from "react-redux";
+import { profileUser } from "../reducers/profile.reducer";
+import { useDispatch } from "react-redux";
 
 function User() {
+  const token = useSelector((state) => state.auth.token);
+  const userName = useSelector((state) => state.profile.userName);
+  const dispatch = useDispatch();
+  const firstName = useSelector((state) => state.profile.firstName);
+  const lastName = useSelector((state) => state.profile.lastName);
+  const handleEditNameClick = () => {
+    const modal = document.querySelector(".modal-edit");
+    modal.style.display = "block";
+    console.log(userName, firstName, lastName);
+  };
+  const handleCloseModalClick = () => {
+    const modal = document.querySelector(".modal-edit");
+    modal.style.display = "none";
+  };
   return (
     <>
       <Nav />
@@ -13,7 +30,7 @@ function User() {
             <br />
             Tony Jarvis!
           </h1>
-          <button className="edit-button" /*onClick={handleEditNameClick}*/>
+          <button className="edit-button" onClick={handleEditNameClick}>
             Edit Name
           </button>
           {/* modal pour changer le nom */}
@@ -22,19 +39,21 @@ function User() {
             <form className="form-edit">
               <div className="input-group">
                 <label htmlFor="userName">User name:</label>
-                <input id="userName" type="text" />
+                <input id="userName" type="text" value={userName} />
               </div>
               <div className="input-group">
                 <label htmlFor="firstName">First name:</label>
-                <input id="firstName" type="text" />
+                <input id="firstName" type="text" value={firstName} />
               </div>
               <div className="input-group">
                 <label htmlFor="lastName">Last Name:</label>
-                <input id="lastName" type="text" />
+                <input id="lastName" type="text" value={lastName} />
               </div>
             </form>
             <button className="button">Save</button>
-            <button className="button">Cancel</button>
+            <button className="button" onClick={handleCloseModalClick}>
+              Cancel
+            </button>
           </dialog>
         </div>
         <h2 className="sr-only">Accounts</h2>
