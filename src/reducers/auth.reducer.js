@@ -1,52 +1,48 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from "../actions/type.actions";
 import axios from "axios";
+import { loginSuccess, loginFailed } from "../actions/auth.actions";
 
+/* Initial state of authentication */
 const initialState = {
   isAuthentificated: false,
-  user: null,
   token: null,
 };
 
-// Créez une action asynchrone avec `createAsyncThunk`
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (userData, thunkAPI) => {
+export const loginUser = (userData) => {
+  return async (dispatch) => {
     try {
       const response = await axios.post(
         "http://localhost:3001/api/v1/user/login",
         userData
       );
-      return response.data;
+      console.log("success fetch");
+      dispatch(loginSuccess(response.data.token));
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      console.log("error fetch");
+      dispatch(loginFailed(error.message));
     }
+  };
+};
+
+export const authReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isAuthentificated: true,
+        token: action.payload,
+      };
+
+    case LOGIN_FAIL: {
+      return {
+        ...state,
+        isAuthentificated: false,
+      };
+    }
+    case LOGOUT: {
+      return initialState;
+    }
+    default:
+      return state;
   }
-);
-
-const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    logout: (state) => {
-      state.isAuthentificated = false;
-      state.token = null;
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isAuthentificated = true;
-        state.token = action.payload.body.token;
-      })
-      .addCase(loginUser.rejected, (state) => {
-        // Gérer l'erreur ici
-        state.isAuthentificated = false;
-        state.token = null;
-      });
-  },
-});
-
-export const { logout } = authSlice.actions;
-export const selectAuth = (state) => state.auth;
-export default authSlice.reducer;
+};

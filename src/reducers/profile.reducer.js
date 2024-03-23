@@ -1,64 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { GET_USERPROFILE, EDIT_USERNAME } from "../actions/type.actions";
 
-const initialState = { profile: null, profileInfo: null };
+/* Initial user state */
+const initialState = {
+  userData: {},
+};
 
-// Créez une action asynchrone avec `createAsyncThunk`
-export const profileUserInfo = createAsyncThunk(
-  "profile/profileUserInfo",
-  async (thunkAPI) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/user/profile",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
+export const profileReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_USERPROFILE:
+      return {
+        ...state,
+        userData: action.payload,
+      };
+    case EDIT_USERNAME:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          username: action.payload,
+        },
+      };
+    default:
+      return state;
   }
-);
-
-export const profileUser = createAsyncThunk(
-  "profile/profileUser",
-  async (userData, thunkAPI) => {
-    console.log("user data: " + userData);
-    try {
-      const response = await axios.put(
-        "http://localhost:3001/api/v1/user/profile",
-        userData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-const profileSlice = createSlice({
-  name: "profile",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(profileUser.fulfilled, (state, action) => {
-        state.profile = action.payload;
-      })
-      .addCase(profileUserInfo.fulfilled, (state, action) => {
-        state.profileInfo = action.payload;
-      });
-  },
-});
-
-export const selectProfile = (state) => state.profile;
-export default profileSlice.reducer;
+};

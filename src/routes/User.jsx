@@ -1,36 +1,8 @@
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Account from "../components/Account";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { profileUser } from "../reducers/profile.reducer";
-import { profileUserInfo } from "../reducers/profile.reducer";
-import { useState } from "react";
 
 function User() {
-  const dispatch = useDispatch();
-  const profile = useSelector((state) => state.profile);
-  const profileInfo = useSelector((state) => state.profileInfo);
-  {
-    /*const isAuthentificated = useSelector((state) => state.isAuthentificated);
-  if (!isAuthentificated) {
-    return <Navigate to="/" />;
-  }
-  */
-  }
-  const handleEditNameClick = () => {
-    const modal = document.querySelector(".modal-edit");
-    modal.showModal();
-    modal.querySelector(".button").addEventListener("click", () => {
-      const username = document.getElementById("userName").value;
-      const userData = JSON.stringify({ user: username });
-      dispatch(profileUser(userData));
-      modal.close();
-      console.log(profile);
-      console.log(profileInfo);
-    });
-  };
   return (
     <>
       <Nav />
@@ -41,7 +13,7 @@ function User() {
             <br />
             Tony Jarvis!
           </h1>
-          <button className="edit-button" onClick={handleEditNameClick}>
+          <button className="edit-button" /*onClick={handleEditNameClick}*/>
             Edit Name
           </button>
           {/* modal pour changer le nom */}

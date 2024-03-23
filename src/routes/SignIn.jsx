@@ -2,36 +2,27 @@ import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
-import { loginUser } from "..//reducers/auth.reducer";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../reducers/auth.reducer";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 function SignIn() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const isAthentificated = useSelector((state) => state.auth.isAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("login");
-    const userData = { email: email, password: password };
-    dispatch(loginUser(userData)).then((res) => {
-      if (res.payload.status === 200) {
-        localStorage.setItem("token", res.payload.body.token);
-        navigate("/user");
-      } else {
-        {
-          /* afficher un message d'erreur */
-        }
-        const modal = document.querySelector(".modal-error");
-        modal.showModal();
-        modal.querySelector("button").addEventListener("click", () => {
-          modal.close();
-        });
-      }
-    });
+    console.log("handleLogin");
+    const userData = `email: ${email}, password: ${password}`;
+    dispatch(loginUser(userData));
   };
+  if (isAthentificated) {
+    return <Navigate to="/user" />;
+  }
   return (
     <>
       <Nav />

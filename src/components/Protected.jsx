@@ -1,7 +1,8 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const Protected = ({ children }) => {
-  const token = localStorage.getItem("token");
+  const token = useSelector((state) => state.auth.token);
   // Check if the user is authenticated
   if (!token) {
     console.log("Protected: user is not authenticated");
