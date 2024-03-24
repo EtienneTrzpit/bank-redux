@@ -57,17 +57,17 @@ function User() {
               </div>
               <div className="input-group">
                 <label htmlFor="firstName">First name:</label>
-                <input id="firstName" type="text" value={firstName} />
+                <input id="firstName" type="text" value={firstName} disabled />
               </div>
               <div className="input-group">
                 <label htmlFor="lastName">Last Name:</label>
-                <input id="lastName" type="text" value={lastName} />
+                <input id="lastName" type="text" value={lastName} disabled />
               </div>
             </form>
-            <button className="button" onClick={handleSaveClick}>
+            <button className="edit-button" onClick={handleSaveClick}>
               Save
             </button>
-            <button className="button" onClick={handleCloseModalClick}>
+            <button className="edit-button" onClick={handleCloseModalClick}>
               Cancel
             </button>
           </dialog>
