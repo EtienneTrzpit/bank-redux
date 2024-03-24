@@ -4,21 +4,30 @@ import Account from "../components/Account";
 import { useSelector } from "react-redux";
 import { profileUser } from "../reducers/profile.reducer";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { editUsername } from "../reducers/profile.reducer";
 
 function User() {
   const token = useSelector((state) => state.auth.token);
-  const userName = useSelector((state) => state.profile.userName);
-  const dispatch = useDispatch();
+  const [userName, setUsername] = useState("");
   const firstName = useSelector((state) => state.profile.firstName);
   const lastName = useSelector((state) => state.profile.lastName);
+  const dispatch = useDispatch();
+  dispatch(profileUser(token));
+
   const handleEditNameClick = () => {
     const modal = document.querySelector(".modal-edit");
     modal.style.display = "block";
-    console.log(userName, firstName, lastName);
   };
   const handleCloseModalClick = () => {
     const modal = document.querySelector(".modal-edit");
     modal.style.display = "none";
+  };
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+  const handleSaveClick = () => {
+    dispatch(editUsername(token, userName));
   };
   return (
     <>
@@ -39,7 +48,12 @@ function User() {
             <form className="form-edit">
               <div className="input-group">
                 <label htmlFor="userName">User name:</label>
-                <input id="userName" type="text" value={userName} />
+                <input
+                  id="userName"
+                  type="text"
+                  value={userName}
+                  onChange={handleUsernameChange}
+                />
               </div>
               <div className="input-group">
                 <label htmlFor="firstName">First name:</label>
@@ -50,7 +64,9 @@ function User() {
                 <input id="lastName" type="text" value={lastName} />
               </div>
             </form>
-            <button className="button">Save</button>
+            <button className="button" onClick={handleSaveClick}>
+              Save
+            </button>
             <button className="button" onClick={handleCloseModalClick}>
               Cancel
             </button>
