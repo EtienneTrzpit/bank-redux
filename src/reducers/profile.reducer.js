@@ -22,8 +22,6 @@ export const profileUser = (token) => {
           },
         }
       );
-      console.log(response.data.body, "success get profile");
-      console.log(response.data.body.firstName);
       dispatch(userProfile(response.data.body));
     } catch (error) {
       dispatch(userProfile(error.message));

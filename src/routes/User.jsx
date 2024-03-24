@@ -51,17 +51,27 @@ function User() {
                 <input
                   id="userName"
                   type="text"
-                  value={userName}
+                  value={userName || ""}
                   onChange={handleUsernameChange}
                 />
               </div>
               <div className="input-group">
                 <label htmlFor="firstName">First name:</label>
-                <input id="firstName" type="text" value={firstName} disabled />
+                <input
+                  id="firstName"
+                  type="text"
+                  value={firstName || ""}
+                  disabled
+                />
               </div>
               <div className="input-group">
                 <label htmlFor="lastName">Last Name:</label>
-                <input id="lastName" type="text" value={lastName} disabled />
+                <input
+                  id="lastName"
+                  type="text"
+                  value={lastName || ""}
+                  disabled
+                />
               </div>
             </form>
             <button className="edit-button" onClick={handleSaveClick}>

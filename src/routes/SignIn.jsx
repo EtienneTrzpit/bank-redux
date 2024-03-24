@@ -15,18 +15,12 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const authState = useSelector((state) => state.auth);
-  console.log(authState);
-
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(isAuthentificated);
-    console.log("handleLogin");
     const userData = { email: email, password: password };
     dispatch(loginUser(userData));
   };
   if (isAuthentificated) {
-    console.log("navigate to user");
     return <Navigate to="/user" />;
   }
   return (

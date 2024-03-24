@@ -15,11 +15,8 @@ export const loginUser = (userData) => {
         "http://localhost:3001/api/v1/user/login",
         userData
       );
-      console.log("success fetch");
-      console.log(response.data.body.token);
       dispatch(loginSuccess(response.data.body.token));
     } catch (error) {
-      console.log("error fetch");
       dispatch(loginFailed(error.message));
     }
   };
