@@ -7,7 +7,6 @@ const Protected = ({ children }) => {
   );
   // Check if the user is authenticated
   if (!isAuthentificated) {
-    console.log("Protected: user is not authenticated");
     // If not authenticated, redirect to the login page
     return <Navigate to="/" />;
   }

@@ -6,15 +6,19 @@ import { profileUser } from "../reducers/profile.reducer";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { editUsername } from "../reducers/profile.reducer";
+import { useEffect } from "react";
 
 function User() {
   const token = useSelector((state) => state.auth.token);
-  const [userName, setUsername] = useState("");
+  const initialUserName = useSelector((state) => state.profile.userName);
+  const [userName, setUsername] = useState(initialUserName);
   const firstName = useSelector((state) => state.profile.firstName);
   const lastName = useSelector((state) => state.profile.lastName);
   const dispatch = useDispatch();
   dispatch(profileUser(token));
-
+  useEffect(() => {
+    setUsername(initialUserName);
+  }, [initialUserName]);
   const handleEditNameClick = () => {
     const modal = document.querySelector(".modal-edit");
     modal.style.display = "block";
@@ -28,6 +32,8 @@ function User() {
   };
   const handleSaveClick = () => {
     dispatch(editUsername(token, userName));
+    const modal = document.querySelector(".modal-edit");
+    modal.style.display = "none";
   };
   return (
     <>

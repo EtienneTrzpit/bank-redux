@@ -29,23 +29,25 @@ export const profileUser = (token) => {
   };
 };
 
+const API_BASE_URL = "http://localhost:3001/api/v1";
+const api = axios.create({ baseURL: API_BASE_URL });
+
+export const updateUserProfileApi = async (userData, token) => {
+  return api.put("/user/profile", userData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
 export const editUsername = (token, username) => {
-  console.log(token, username);
   return async (dispatch) => {
     try {
-      const response = await axios.put(
-        "http://localhost:3001/api/v1/user/profile",
-        { username },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await updateUserProfileApi(
+        { userName: username },
+        token
       );
-      console.log(response.data.body, "success edit profile");
-      dispatch(updateUsername(response.data.body));
+      dispatch(updateUsername(response.data.body.userName));
     } catch (error) {
-      console.log(error.message);
+      dispatch(updateUsername(error.message));
     }
   };
 };
@@ -53,11 +55,6 @@ export const editUsername = (token, username) => {
 export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USERPROFILE:
-      console.log(
-        action.payload.userName.userName,
-        action.payload.userName.firstName,
-        action.payload.userName.lastName
-      );
       return {
         ...state,
         userName: action.payload.userName.userName,
