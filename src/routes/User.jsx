@@ -26,6 +26,7 @@ function User() {
   const handleCloseModalClick = () => {
     const modal = document.querySelector(".modal-edit");
     modal.style.display = "none";
+    setUsername(initialUserName);
   };
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
