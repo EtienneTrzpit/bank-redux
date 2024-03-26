@@ -7,8 +7,14 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../reducers/auth.reducer";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function SignIn() {
+  //variable pour vérifier si la chackbox est cochée
+  const [checked, setChecked] = useState(false);
+  const handleCheckboxChange = (event) => {
+    setChecked(event.target.checked);
+  };
   const isAuthentificated = useSelector(
     (state) => state.auth.isAuthentificated
   );
@@ -17,9 +23,21 @@ function SignIn() {
   const dispatch = useDispatch();
   const handleLogin = (e) => {
     e.preventDefault();
+    if (checked) {
+      localStorage.setItem("email", email);
+    } else {
+      localStorage.removeItem("email");
+    }
     const userData = { email: email, password: password };
     dispatch(loginUser(userData));
   };
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+      setChecked(true);
+    }
+  }, []);
   if (isAuthentificated) {
     return <Navigate to="/user" />;
   }
@@ -39,6 +57,7 @@ function SignIn() {
                 id="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
               />
             </div>
             <div className="input-wrapper">
@@ -49,10 +68,16 @@ function SignIn() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
               />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input
+                type="checkbox"
+                id="remember-me"
+                checked={checked}
+                onChange={handleCheckboxChange}
+              />
               <label htmlFor="remember-me">Remember me</label>
             </div>
             <button type="submit" className="sign-in-button">
