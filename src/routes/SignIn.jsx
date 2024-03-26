@@ -24,12 +24,12 @@ function SignIn() {
   const handleLogin = (e) => {
     e.preventDefault();
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if (!emailRegex.test(email)) {
       alert("format d'email invalide");
     } else if (!passwordRegex.test(password)) {
       alert(
-        "Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre"
+        "Le mot de passe doit contenir au moins 8 caractères dont une lettre minuscule et un chiffre"
       );
     } else {
       if (checked) {
@@ -60,11 +60,11 @@ function SignIn() {
           <h1>Sign In</h1>
           <form onSubmit={handleLogin}>
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email</label>
               <input
                 required
                 type="text"
-                id="username"
+                id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="off"
