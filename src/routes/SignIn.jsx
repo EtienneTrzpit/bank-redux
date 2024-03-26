@@ -23,13 +23,23 @@ function SignIn() {
   const dispatch = useDispatch();
   const handleLogin = (e) => {
     e.preventDefault();
-    if (checked) {
-      localStorage.setItem("email", email);
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    if (!emailRegex.test(email)) {
+      alert("format d'email invalide");
+    } else if (!passwordRegex.test(password)) {
+      alert(
+        "Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre"
+      );
     } else {
-      localStorage.removeItem("email");
+      if (checked) {
+        localStorage.setItem("email", email);
+      } else {
+        localStorage.removeItem("email");
+      }
+      const userData = { email: email, password: password };
+      dispatch(loginUser(userData));
     }
-    const userData = { email: email, password: password };
-    dispatch(loginUser(userData));
   };
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
