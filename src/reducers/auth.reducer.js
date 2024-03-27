@@ -6,6 +6,7 @@ import { loginSuccess, loginFailed } from "../actions/auth.actions";
 const initialState = {
   isAuthentificated: false,
   token: null,
+  error: false,
 };
 
 export const loginUser = (userData) => {
@@ -18,9 +19,6 @@ export const loginUser = (userData) => {
       dispatch(loginSuccess(response.data.body.token));
     } catch (error) {
       dispatch(loginFailed());
-      if ((error.massage = "Request failed with status code 400")) {
-        alert("Invalid email or password");
-      }
     }
   };
 };
@@ -38,6 +36,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthentificated: false,
+        error: true,
       };
     }
     case LOGOUT: {

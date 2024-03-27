@@ -8,8 +8,29 @@ import { loginUser } from "../reducers/auth.reducer";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useCallback } from "react";
+import ErrorModal from "../components/ErrorModal";
 
 function SignIn() {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const showErrorModal = useCallback((message) => {
+    setErrorMessage(message);
+    setModalOpen(true);
+  }, []);
+
+  const error = useSelector((state) => state.auth.error);
+
+  useEffect(() => {
+    if (error) {
+      setErrorMessage("Email or password is incorrect");
+      setModalOpen(true);
+    }
+  }, [error]);
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setErrorMessage("");
+  };
   //variable pour vérifier si la chackbox est cochée
   const [checked, setChecked] = useState(false);
   const handleCheckboxChange = (event) => {
@@ -26,9 +47,9 @@ function SignIn() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if (!emailRegex.test(email)) {
-      alert("invalid email format");
+      showErrorModal("invalid email format");
     } else if (!passwordRegex.test(password)) {
-      alert(
+      showErrorModal(
         "The password must contain at least 8 characters including a lowercase letter and a number"
       );
     } else {
@@ -94,6 +115,11 @@ function SignIn() {
               Sign In
             </button>
           </form>
+          <ErrorModal
+            isOpen={isModalOpen}
+            message={errorMessage}
+            onClose={handleCloseModal}
+          />
           <dialog className="modal-error">
             <p>Wrong username or password</p>
             <button>OK</button>
