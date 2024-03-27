@@ -44,7 +44,7 @@ function User() {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {firstName} {lastName}!
           </h1>
           <button className="edit-button" onClick={handleEditNameClick}>
             Edit Name
