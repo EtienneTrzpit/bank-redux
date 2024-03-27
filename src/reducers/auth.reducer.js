@@ -17,7 +17,10 @@ export const loginUser = (userData) => {
       );
       dispatch(loginSuccess(response.data.body.token));
     } catch (error) {
-      dispatch(loginFailed(error.message));
+      dispatch(loginFailed());
+      if ((error.massage = "Request failed with status code 400")) {
+        alert("Invalid email or password");
+      }
     }
   };
 };

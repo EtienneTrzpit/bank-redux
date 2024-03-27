@@ -26,10 +26,10 @@ function SignIn() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     if (!emailRegex.test(email)) {
-      alert("format d'email invalide");
+      alert("invalid email format");
     } else if (!passwordRegex.test(password)) {
       alert(
-        "Le mot de passe doit contenir au moins 8 caractères dont une lettre minuscule et un chiffre"
+        "The password must contain at least 8 characters including a lowercase letter and a number"
       );
     } else {
       if (checked) {
