@@ -338,6 +338,9 @@ definitions:
       accountNumber:
         type: number
         description: account number
+      accountName:
+        type: string
+        description: account name
       accountCurrency:
         type: string
         description: account currency
