@@ -1,4 +1,8 @@
-import { GET_USERPROFILE, EDIT_USERNAME } from "../actions/type.actions";
+import {
+  GET_USERPROFILE,
+  EDIT_USERNAME,
+  DELETE_USERPROFILE,
+} from "../actions/type.actions";
 import axios from "axios";
 import { userProfile } from "../actions/profile.actions";
 import { updateUsername } from "../actions/profile.actions";
@@ -66,6 +70,8 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         userName: action.payload,
       };
+    case DELETE_USERPROFILE:
+      return initialState;
     default:
       return state;
   }

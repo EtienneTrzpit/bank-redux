@@ -3,6 +3,7 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/auth.actions";
+import { deleteUserProfile } from "../actions/profile.actions";
 
 function Nav() {
   const isAuthentificated = useSelector(
@@ -29,6 +30,7 @@ function Nav() {
           onClick={(e) => {
             if (isAuthentificated) {
               dispatch(logout());
+              dispatch(deleteUserProfile());
             }
           }}
         >
