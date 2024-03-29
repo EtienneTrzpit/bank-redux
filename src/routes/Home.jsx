@@ -4,8 +4,16 @@ import Nav from "../components/Nav";
 import chat from "../assets/icon-chat.png";
 import money from "../assets/icon-money.png";
 import security from "../assets/icon-security.png";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 function Home() {
+  const isAuthentificated = useSelector(
+    (state) => state.auth.isAuthentificated
+  );
+  if (isAuthentificated) {
+    return <Navigate to="/user" />;
+  }
   return (
     <>
       <Nav />
