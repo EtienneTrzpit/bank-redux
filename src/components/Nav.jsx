@@ -8,6 +8,7 @@ function Nav() {
   const isAuthentificated = useSelector(
     (state) => state.auth.isAuthentificated
   );
+  const userName = useSelector((state) => state.profile.userName);
   const dispatch = useDispatch();
   return (
     <nav className="main-nav">
@@ -19,7 +20,9 @@ function Nav() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </a>
-      <div>
+      <div className="main-nav-settings">
+        <p>{userName}</p>
+        <FontAwesomeIcon icon={faCircleUser} />
         <a
           className="main-nav-item"
           href={isAuthentificated ? "/" : "/sign-in"}
@@ -29,7 +32,6 @@ function Nav() {
             }
           }}
         >
-          <FontAwesomeIcon icon={faCircleUser} />
           {isAuthentificated ? "Sign Out" : "Sign In"}
         </a>
       </div>
