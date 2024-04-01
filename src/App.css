@@ -132,6 +132,10 @@ body {
   color: #2c3e50;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (min-width: 920px) {
   .hero {
     height: 400px;

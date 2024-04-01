@@ -120,10 +120,6 @@ function SignIn() {
             message={errorMessage}
             onClose={handleCloseModal}
           />
-          <dialog className="modal-error">
-            <p>Wrong username or password</p>
-            <button>OK</button>
-          </dialog>
         </section>
       </main>
       <Footer />

@@ -14,6 +14,7 @@ function User() {
   const [userName, setUsername] = useState(initialUserName);
   const firstName = useSelector((state) => state.profile.firstName);
   const lastName = useSelector((state) => state.profile.lastName);
+  const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
   dispatch(profileUser(token));
   useEffect(() => {
@@ -32,6 +33,10 @@ function User() {
     setUsername(event.target.value);
   };
   const handleSaveClick = () => {
+    if (!userName) {
+      setShowError(true);
+      return;
+    }
     dispatch(editUsername(token, userName));
     const modal = document.querySelector(".modal-edit");
     modal.style.display = "none";
@@ -80,6 +85,9 @@ function User() {
                   disabled
                 />
               </div>
+              <p className={`error ${showError ? "" : "hidden"}`}>
+                Username required
+              </p>
             </form>
             <button className="edit-button" onClick={handleSaveClick}>
               Save
