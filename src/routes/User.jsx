@@ -21,6 +21,7 @@ function User() {
     setUsername(initialUserName);
   }, [initialUserName]);
   const handleEditNameClick = () => {
+    setShowError(false);
     const modal = document.querySelector(".modal-edit");
     modal.style.display = "block";
   };
