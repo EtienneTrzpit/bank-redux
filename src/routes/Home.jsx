@@ -1,9 +1,9 @@
 import FeatureItem from "../components/FeatureItem";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
-import chat from "../assets/icon-chat.png";
-import money from "../assets/icon-money.png";
-import security from "../assets/icon-security.png";
+import chat from "../assets/icon-chat.avif";
+import money from "../assets/icon-money.avif";
+import security from "../assets/icon-security.avif";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 

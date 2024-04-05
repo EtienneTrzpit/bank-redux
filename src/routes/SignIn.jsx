@@ -31,7 +31,7 @@ function SignIn() {
     setModalOpen(false);
     setErrorMessage("");
   };
-  //variable pour vérifier si la chackbox est cochée
+  //variable pour vérifier si la checkbox est cochée
   const [checked, setChecked] = useState(false);
   const handleCheckboxChange = (event) => {
     setChecked(event.target.checked);

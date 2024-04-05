@@ -1,4 +1,4 @@
-import Logo from "../assets/argentBankLogo.png";
+import Logo from "../assets/argentBankLogo.avif";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
